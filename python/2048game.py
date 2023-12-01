@@ -8,7 +8,7 @@ class Game2048:
         self.window.title("2048 Game")
         self.window.geometry("400x400")
 
-        # 4x4 크기의 보드 초기화
+        # 4x4 크기의 보드
         self.board = [[0] * 4 for _ in range(4)]
         # 점수 초기화
         self.score = 0
@@ -37,9 +37,9 @@ class Game2048:
         for i in range(4):
             for j in range(4):
                 value = self.board[i][j]
-                x, y = j * 100, i * 100
+                x, y = j * 100, i * 100 # 100*100크기의 타일
                 # 각 타일 그리기
-                self.canvas.create_rectangle(x, y, x + 100, y + 100, fill="lightgray", tags="tiles")
+                self.canvas.create_rectangle(x, y, x + 100, y + 100, fill="#FFE5C2", tags="tiles")
                 if value != 0:
                     self.canvas.create_text(x + 50, y + 50, text=str(value), font=("Arial", 20, "bold"), tags="tiles")
 
@@ -50,7 +50,9 @@ class Game2048:
 
     def spawn_tile(self):
         # 빈 셀 중에서 무작위로 타일 생성
+        # 16칸 중에 임의의 하나가 0이면 = empty_cells
         empty_cells = [(i, j) for i in range(4) for j in range(4) if self.board[i][j] == 0]
+        
         if empty_cells:
             i, j = random.choice(empty_cells)
             self.board[i][j] = 2 if random.random() < 0.9 else 4
